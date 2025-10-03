@@ -239,117 +239,119 @@ const PhotoUpload = () => {
   return (
     <div className="min-h-screen bg-background">
       <TopNavigation userRole="photographer" />
-      <div className="pt-16">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <BreadcrumbTrail userRole="photographer" />
-          
-          {/* Header */}
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
-            <div>
-              <h1 className="text-3xl font-bold text-foreground mb-2">Photo Upload</h1>
-              <p className="text-muted-foreground">
-                Upload and organize your photos with intelligent batch processing
-              </p>
-            </div>
-            
-            <div className="flex items-center gap-3">
-              <Button
-                variant="outline"
-                onClick={() => navigate('/collection-management')}
-                iconName="ArrowLeft"
-                iconPosition="left"
-              >
-                Back to Collections
-              </Button>
-              {files?.length > 0 && (
+      <div className="md:ml-72">
+        <div className="pt-16 md:pt-8">
+          <div className="max-w-7xl mx-auto px-6 py-8">
+            <BreadcrumbTrail userRole="photographer" />
+
+            {/* Header */}
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
+              <div>
+                <h1 className="text-3xl font-bold text-foreground mb-2">Photo Upload</h1>
+                <p className="text-muted-foreground">
+                  Upload and organize your photos with intelligent batch processing
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
                 <Button
-                  onClick={startUpload}
-                  disabled={isUploading || !selectedCollection}
-                  iconName={isUploading ? "Loader2" : "Upload"}
+                  variant="outline"
+                  onClick={() => navigate('/collection-management')}
+                  iconName="ArrowLeft"
                   iconPosition="left"
-                  className={isUploading ? "animate-spin" : ""}
                 >
-                  {isUploading ? 'Uploading...' : `Upload ${files?.length} Photos`}
+                  Back to Collections
                 </Button>
-              )}
+                {files?.length > 0 && (
+                  <Button
+                    onClick={startUpload}
+                    disabled={isUploading || !selectedCollection}
+                    iconName={isUploading ? "Loader2" : "Upload"}
+                    iconPosition="left"
+                    className={isUploading ? "animate-spin" : ""}
+                  >
+                    {isUploading ? 'Uploading...' : `Upload ${files?.length} Photos`}
+                  </Button>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
-            {/* Main Content */}
-            <div className="xl:col-span-3 space-y-6">
-              {/* Collection Selection */}
-              <CollectionSelector
-                collections={mockCollections}
-                selectedCollection={selectedCollection}
-                onSelectionChange={setSelectedCollection}
-              />
-
-              {/* Upload Zone */}
-              <UploadZone 
-                onFilesSelected={handleFilesSelected}
-                isUploading={isUploading}
-                acceptedTypes="image/*"
-                maxFileSize={50 * 1024 * 1024} // 50MB
-                supportsBatch={true}
-              />
-
-              {/* Upload Progress */}
-              {isUploading && (
-                <UploadProgress 
-                  progress={uploadProgress}
-                  currentFile={uploadingFiles?.[0]?.name}
-                  totalFiles={files?.length}
-                  completedFiles={completedFiles?.length}
-                  errorFiles={errorFiles?.length}
+            <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
+              {/* Main Content */}
+              <div className="xl:col-span-3 space-y-6">
+                {/* Collection Selection */}
+                <CollectionSelector
+                  collections={mockCollections}
+                  selectedCollection={selectedCollection}
+                  onSelectionChange={setSelectedCollection}
                 />
-              )}
 
-              {/* Upload Queue */}
-              {files?.length > 0 && (
-                <UploadQueue
-                  files={files}
-                  onFileRemove={handleFileRemove}
-                  onFileUpdate={handleFileUpdate}
-                  onRetryFailed={handleRetryFailed}
-                  onClearCompleted={clearCompleted}
+                {/* Upload Zone */}
+                <UploadZone
+                  onFilesSelected={handleFilesSelected}
                   isUploading={isUploading}
+                  acceptedTypes="image/*"
+                  maxFileSize={50 * 1024 * 1024} // 50MB
+                  supportsBatch={true}
                 />
-              )}
 
-              {/* Empty State */}
-              {files?.length === 0 && !isUploading && (
-                <div className="text-center py-12">
-                  <Icon name="Upload" size={48} className="text-muted-foreground/50 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-foreground mb-2">Ready to upload</h3>
-                  <p className="text-muted-foreground mb-6">
-                    Select photos above or drag and drop them into the upload zone
-                  </p>
-                  <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                      <Icon name="Image" size={16} />
-                      <span>JPG, PNG, HEIC</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Icon name="HardDrive" size={16} />
-                      <span>Up to 50MB each</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Icon name="FolderOpen" size={16} />
-                      <span>Batch upload support</span>
+                {/* Upload Progress */}
+                {isUploading && (
+                  <UploadProgress
+                    progress={uploadProgress}
+                    currentFile={uploadingFiles?.[0]?.name}
+                    totalFiles={files?.length}
+                    completedFiles={completedFiles?.length}
+                    errorFiles={errorFiles?.length}
+                  />
+                )}
+
+                {/* Upload Queue */}
+                {files?.length > 0 && (
+                  <UploadQueue
+                    files={files}
+                    onFileRemove={handleFileRemove}
+                    onFileUpdate={handleFileUpdate}
+                    onRetryFailed={handleRetryFailed}
+                    onClearCompleted={clearCompleted}
+                    isUploading={isUploading}
+                  />
+                )}
+
+                {/* Empty State */}
+                {files?.length === 0 && !isUploading && (
+                  <div className="text-center py-12">
+                    <Icon name="Upload" size={48} className="text-muted-foreground/50 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-foreground mb-2">Ready to upload</h3>
+                    <p className="text-muted-foreground mb-6">
+                      Select photos above or drag and drop them into the upload zone
+                    </p>
+                    <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <Icon name="Image" size={16} />
+                        <span>JPG, PNG, HEIC</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Icon name="HardDrive" size={16} />
+                        <span>Up to 50MB each</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Icon name="FolderOpen" size={16} />
+                        <span>Batch upload support</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
 
-            {/* Processing Options Sidebar */}
-            <div className="xl:col-span-1">
-              <ProcessingOptions
-                options={processingOptions}
-                onOptionsChange={setProcessingOptions}
-                isUploading={isUploading}
-              />
+              {/* Processing Options Sidebar */}
+              <div className="xl:col-span-1">
+                <ProcessingOptions
+                  options={processingOptions}
+                  onOptionsChange={setProcessingOptions}
+                  isUploading={isUploading}
+                />
+              </div>
             </div>
           </div>
         </div>

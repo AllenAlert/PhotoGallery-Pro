@@ -219,12 +219,14 @@ const AdminDashboard = () => {
     return (
       <div className="min-h-screen bg-background">
         <TopNavigation userRole="photographer" />
-        <div className="pt-16">
-          <div className="max-w-7xl mx-auto px-6 py-8">
-            <div className="flex items-center justify-center h-64">
-              <div className="text-center">
-                <Icon name="Loader2" size={32} className="text-muted-foreground animate-spin mx-auto mb-4" />
-                <p className="text-muted-foreground">Loading dashboard...</p>
+        <div className="md:ml-72">
+          <div className="pt-16 md:pt-8">
+            <div className="max-w-7xl mx-auto px-6 py-8">
+              <div className="flex items-center justify-center h-64">
+                <div className="text-center">
+                  <Icon name="Loader2" size={32} className="text-muted-foreground animate-spin mx-auto mb-4" />
+                  <p className="text-muted-foreground">Loading dashboard...</p>
+                </div>
               </div>
             </div>
           </div>
@@ -236,109 +238,111 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <TopNavigation userRole="photographer" />
-      <div className="pt-16">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <BreadcrumbTrail userRole="photographer" />
-          
-          {/* Header */}
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
-            <div>
-              <h1 className="text-3xl font-bold text-foreground mb-2">Dashboard</h1>
-              <p className="text-muted-foreground">
-                Manage your photo collections and track client engagement
-              </p>
-            </div>
-            
-            <Button
-              onClick={() => setIsCreateModalOpen(true)}
-              iconName="Plus"
-              iconPosition="left"
-              size="lg"
-            >
-              Create New Collection
-            </Button>
-          </div>
+      <div className="md:ml-72">
+        <div className="pt-16 md:pt-8">
+          <div className="max-w-7xl mx-auto px-6 py-8">
+            <BreadcrumbTrail userRole="photographer" />
 
-          {/* Metrics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <MetricsCard
-              title="Total Collections"
-              value={metrics?.totalCollections}
-              change="+3 this month"
-              changeType="positive"
-              icon="FolderOpen"
-              color="accent"
-            />
-            <MetricsCard
-              title="Active Galleries"
-              value={metrics?.activeGalleries}
-              change="+2 this week"
-              changeType="positive"
-              icon="Globe"
-              color="success"
-            />
-            <MetricsCard
-              title="Total Views"
-              value={metrics?.totalViews?.toLocaleString()}
-              change="+12% vs last month"
-              changeType="positive"
-              icon="Eye"
-              color="warning"
-            />
-            <MetricsCard
-              title="Downloads"
-              value={metrics?.totalDownloads}
-              change="+8% vs last month"
-              changeType="positive"
-              icon="Download"
-              color="secondary"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
-            {/* Collections Section */}
-            <div className="xl:col-span-3">
-              <FilterBar
-                onFilterChange={handleFilterChange}
-                onSearch={handleSearch}
-                selectedCollections={selectedCollections}
-                onBulkAction={handleBulkAction}
-              />
-
-              {/* Collections Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredCollections?.map((collection) => (
-                  <CollectionCard
-                    key={collection?.id}
-                    collection={collection}
-                    onShare={handleShareCollection}
-                    onEdit={handleEditCollection}
-                    onDelete={handleDeleteCollection}
-                  />
-                ))}
+            {/* Header */}
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
+              <div>
+                <h1 className="text-3xl font-bold text-foreground mb-2">Dashboard</h1>
+                <p className="text-muted-foreground">
+                  Manage your photo collections and track client engagement
+                </p>
               </div>
 
-              {filteredCollections?.length === 0 && (
-                <div className="text-center py-12">
-                  <Icon name="FolderOpen" size={48} className="text-muted-foreground/50 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-foreground mb-2">No collections found</h3>
-                  <p className="text-muted-foreground mb-6">
-                    Create your first collection to get started
-                  </p>
-                  <Button
-                    onClick={() => setIsCreateModalOpen(true)}
-                    iconName="Plus"
-                    iconPosition="left"
-                  >
-                    Create Collection
-                  </Button>
-                </div>
-              )}
+              <Button
+                onClick={() => setIsCreateModalOpen(true)}
+                iconName="Plus"
+                iconPosition="left"
+                size="lg"
+              >
+                Create New Collection
+              </Button>
             </div>
 
-            {/* Activity Feed Sidebar */}
-            <div className="xl:col-span-1">
-              <ActivityFeed activities={activities} />
+            {/* Metrics Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <MetricsCard
+                title="Total Collections"
+                value={metrics?.totalCollections}
+                change="+3 this month"
+                changeType="positive"
+                icon="FolderOpen"
+                color="accent"
+              />
+              <MetricsCard
+                title="Active Galleries"
+                value={metrics?.activeGalleries}
+                change="+2 this week"
+                changeType="positive"
+                icon="Globe"
+                color="success"
+              />
+              <MetricsCard
+                title="Total Views"
+                value={metrics?.totalViews?.toLocaleString()}
+                change="+12% vs last month"
+                changeType="positive"
+                icon="Eye"
+                color="warning"
+              />
+              <MetricsCard
+                title="Downloads"
+                value={metrics?.totalDownloads}
+                change="+8% vs last month"
+                changeType="positive"
+                icon="Download"
+                color="secondary"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
+              {/* Collections Section */}
+              <div className="xl:col-span-3">
+                <FilterBar
+                  onFilterChange={handleFilterChange}
+                  onSearch={handleSearch}
+                  selectedCollections={selectedCollections}
+                  onBulkAction={handleBulkAction}
+                />
+
+                {/* Collections Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredCollections?.map((collection) => (
+                    <CollectionCard
+                      key={collection?.id}
+                      collection={collection}
+                      onShare={handleShareCollection}
+                      onEdit={handleEditCollection}
+                      onDelete={handleDeleteCollection}
+                    />
+                  ))}
+                </div>
+
+                {filteredCollections?.length === 0 && (
+                  <div className="text-center py-12">
+                    <Icon name="FolderOpen" size={48} className="text-muted-foreground/50 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-foreground mb-2">No collections found</h3>
+                    <p className="text-muted-foreground mb-6">
+                      Create your first collection to get started
+                    </p>
+                    <Button
+                      onClick={() => setIsCreateModalOpen(true)}
+                      iconName="Plus"
+                      iconPosition="left"
+                    >
+                      Create Collection
+                    </Button>
+                  </div>
+                )}
+              </div>
+
+              {/* Activity Feed Sidebar */}
+              <div className="xl:col-span-1">
+                <ActivityFeed activities={activities} />
+              </div>
             </div>
           </div>
         </div>
